@@ -116,13 +116,14 @@ class ProductHome extends Component {
             {
                 title: '操作',
                 render: (product) =>{
-
+                        // console.log(product,'119home')
                     return(
                         <span>
                         {/*<LinkButton type={"primary"}>详情</LinkButton>*/}
                             <LinkButton onClick={() => this.props.history.push('/product/detail', {product})}>详情</LinkButton>
+              <LinkButton onClick={() => this.props.history.push('/product/addupdate', {product})}>修改</LinkButton>
 
-                        <LinkButton >修改</LinkButton>
+                        {/*<LinkButton >修改</LinkButton>*/}
                     </span>
                     )
                 } // 当前指定了对应的属性, 传入的是对应的属性值
@@ -148,6 +149,10 @@ class ProductHome extends Component {
    获取指定页码的列表数据显示
     */
     getProducts = async (pageNum) => {
+
+        this.pageNum = pageNum // 保存pageNum, 让其它方法可以看到
+
+
         this.setState({loading: true}) // 显示loading
         // 如果搜索关键字有值, 说明我们要做搜索分页
 
@@ -213,7 +218,8 @@ class ProductHome extends Component {
         );
 
         const extra = (
-            <Button type='primary' >
+            <Button type='primary' onClick={() => this.props.history.push('/product/addupdate')}>
+                {/*<LinkButton     onClick={() => this.props.history.push('/product/detail', {product})}>详情</LinkButton>*/}
                 <Icon type='plus'/>
                 添加商品
             </Button>

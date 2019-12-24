@@ -133,6 +133,7 @@ class LeftNav extends Component {
    */
     componentWillMount () {
         this.menuNodes = this.getMenuNodes(menuList)
+        // this.menuNodes = this.getMenuNodes_map(menuList)
     }
     render() {
         // debugger
