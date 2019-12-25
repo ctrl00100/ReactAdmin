@@ -155,6 +155,9 @@ class ProductAddUpdate extends PureComponent {
     componentWillMount () {
         // 取出携带的state
         const product =this.props.location.state.product  // 如果是添加没值, 否则有值
+
+        //    const product = this.props.location.state  // 如果是添加没值, 否则有值
+        // <LinkButton onClick={() => this.props.history.push('/product/addupdate', product)}>修改</LinkButton>
         // 保存是否是更新的标识
         this.isUpdate = !!product
         // 保存商品(如果没有, 保存是{})
