@@ -9,7 +9,7 @@ import {
     message
 } from 'antd'
 
-// import PicturesWall from './pictures-wall'
+import PicturesWall from './pictures-wall'
 // import RichTextEditor from './rich-text-editor'
 import LinkButton from '../../components/link-button'
 import {reqCategorys, reqAddOrUpdateProduct,reqCategorys2} from '../../api'
@@ -265,7 +265,7 @@ console.log(categoryIds,'categoryIds179');
                     </Item>
 
                     <Item label="商品图片">
-                        <div>商品图片</div>
+                       <PicturesWall/>
                     </Item>
                     <Item label="商品详情">
                         <div>商品图片</div>
