@@ -10,19 +10,26 @@ import {
 } from 'antd'
 
 import PicturesWall from './pictures-wall'
-// import RichTextEditor from './rich-text-editor'
+import RichTextEditor from './rich-text-editor'
 import LinkButton from '../../components/link-button'
-import {reqCategorys, reqAddOrUpdateProduct,reqCategorys2} from '../../api'
+import {reqCategorys, reqAddOrUpdateProduct, reqCategorys2} from '../../api'
 
 const {Item} = Form
-const { TextArea } = Input
-
+const {TextArea} = Input
 
 
 class ProductAddUpdate extends PureComponent {
 
     state = {
         options: [],
+    }
+
+    constructor (props) {
+        super(props)
+
+        // 创建用来保存ref标识的标签对象的容器
+        this.pw = React.createRef()
+        this.editor = React.createRef()
     }
 
     initOptions = async (categorys) => {
@@ -35,9 +42,9 @@ class ProductAddUpdate extends PureComponent {
 
         // 如果是一个二级分类商品的更新
         const {isUpdate, product} = this
-        const {pcategoryId,categoryId} = product
-        const numm=Number (pcategoryId)
-        console.log(pcategoryId,'pcategoryId33399')
+        const {pcategoryId, categoryId} = product
+        const numm = Number(pcategoryId)
+        console.log(pcategoryId, 'pcategoryId33399')
         if (isUpdate && pcategoryId !== '0') {
             // 获取对应的二级分类列表
             const subCategorys = await this.getCategorys(numm)
@@ -67,38 +74,37 @@ class ProductAddUpdate extends PureComponent {
       */
     getCategorys = async (parentId) => {
         let result
-        if( parentId==='0' ){
+        if (parentId === '0') {
             result = await reqCategorys(parentId)   // {status: 0, data: categorys}
-        }else{
+        } else {
 
             result = await reqCategorys2(parentId)   // {status: 0, data: categorys}
 
         }
 
-        if (result.status===0) {
+        if (result.status === 0) {
             const categorys = result.data
             // 如果是一级分类列表
-            if (parentId==='0') {
+            if (parentId === '0') {
                 this.initOptions(categorys)
-            }else{ //二级列表
+            } else { //二级列表
 
                 // const   categorys = result.data
                 return categorys;
             }
         }
-}
+    }
     /*
 验证价格的自定义验证函数
  */
     validatePrice = (rule, value, callback) => {
         // console.log(value, typeof value)
-        if (value*1 > 0) {
+        if (value * 1 > 0) {
             callback() // 验证通过
         } else {
             callback('价格必须大于0') // 验证没通过
         }
     }
-
 
 
     /*
@@ -115,7 +121,7 @@ class ProductAddUpdate extends PureComponent {
         // 隐藏loading
         targetOption.loading = false
         // 二级分类数组有数据
-        if (subCategorys && subCategorys.length>0) {
+        if (subCategorys && subCategorys.length > 0) {
             // 生成一个二级列表的options
             const childOptions = subCategorys.map(c => ({
                 value: c.idme,
@@ -139,22 +145,31 @@ class ProductAddUpdate extends PureComponent {
         // 进行表单验证, 如果通过了, 才发送请求
         this.props.form.validateFields(async (error, values) => {
             if (!error) {
-                console.log('submit',values)
-                // alert("99999")
+                console.log('submit', values)
+
+                const imgs=this.pw.current.getImgs()
+                const detail=this.editor.current.getDetail()
+
+                console.log('detail', detail)
+
+                // console.log('imgs', imgs)
+                // console.log('this.pw', this.pw)
+                // console.log('this.pw.current', this.pw.current)
+
+                alert("发送ajax")
             }
 
         })
     }
 
 
-
-    componentDidMount () {
+    componentDidMount() {
         this.getCategorys('0')
     }
 
-    componentWillMount () {
+    componentWillMount() {
         // 取出携带的state
-        const product =this.props.location.state.product  // 如果是添加没值, 否则有值
+        const product = this.props.location.state  // 如果是添加没值, 否则有值
 
         //    const product = this.props.location.state  // 如果是添加没值, 否则有值
         // <LinkButton onClick={() => this.props.history.push('/product/addupdate', product)}>修改</LinkButton>
@@ -168,14 +183,31 @@ class ProductAddUpdate extends PureComponent {
     render() {
         const {isUpdate, product} = this
         const {pcategoryId, categoryId, imgs, detail} = product
+        // const {pcategoryId, categoryId, detail} = product
+
+        // let imgs2=  [
+        //     "image-1554638676149.jpg",
+        //         "image-1554638683746.jpg"
+        //     ]
+
+        const imgs2 = []
+
+        if (imgs) {
+            //图片切割
+            imgs.split('--').map(list => (
+
+                imgs2.push(list)));
+
+        }
+        // console.log('imgs177', imgs2)
         // 用来接收级联分类ID的数组
         const categoryIds = []
 
         const num1 = Number(pcategoryId)
         const num2 = Number(categoryId)
-        if(isUpdate) {
+        if (isUpdate) {
             // 商品是一个一级分类的商品
-            if(pcategoryId==='0') {
+            if (pcategoryId === '0') {
                 categoryIds.push(num2)
             } else {
                 // 商品是一个二级分类的商品
@@ -184,13 +216,13 @@ class ProductAddUpdate extends PureComponent {
             }
         }
 
-console.log(categoryIds,'categoryIds179');
+// console.log(categoryIds,'categoryIds179');
 
 
         // 指定Item布局的配置对象
         const formItemLayout = {
-            labelCol: { span: 2 },  // 左侧label的宽度
-            wrapperCol: { span: 8 }, // 右侧包裹的宽度
+            labelCol: {span: 2},  // 左侧label的宽度
+            wrapperCol: {span: 8}, // 右侧包裹的宽度
         }
 
         // 头部左侧标题
@@ -200,7 +232,7 @@ console.log(categoryIds,'categoryIds179');
           <Icon type='arrow-left' style={{fontSize: 20}}/>
         </LinkButton>
         <span>{isUpdate ? '修改商品' : '添加商品'}</span>
-        {/*<span>添加商品</span>*/}
+                {/*<span>添加商品</span>*/}
       </span>
         )
 
@@ -227,7 +259,7 @@ console.log(categoryIds,'categoryIds179');
                                 rules: [
                                     {required: true, message: '必须输入商品描述'}
                                 ]
-                            })(<TextArea placeholder="请输入商品描述" autoSize={{ minRows: 2, maxRows: 6 }} />)
+                            })(<TextArea placeholder="请输入商品描述" autoSize={{minRows: 2, maxRows: 6}}/>)
                         }
 
                     </Item>
@@ -249,7 +281,7 @@ console.log(categoryIds,'categoryIds179');
                         {
                             getFieldDecorator('categoryIds', {
                                 // initialValue:  [pcategoryIds,8],
-                                initialValue:   categoryIds,
+                                initialValue: categoryIds,
                                 rules: [
                                     {required: true, message: '必须指定商品分类'},
                                 ]
@@ -265,10 +297,10 @@ console.log(categoryIds,'categoryIds179');
                     </Item>
 
                     <Item label="商品图片">
-                       <PicturesWall/>
+                        <PicturesWall ref={this.pw} imgs={imgs2}/>
                     </Item>
-                    <Item label="商品详情">
-                        <div>商品图片</div>
+                    <Item label="商品详情" labelCol={{span: 2}} wrapperCol={{span: 16}}>
+                      <RichTextEditor   ref={this.editor} detail={detail} />
                     </Item>
 
                     <Item>

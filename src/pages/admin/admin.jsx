@@ -32,7 +32,7 @@ class Admin extends Component {
         }
         return (
             <div>
-                <Layout style={{height: '100vh'}}>
+                <Layout style={{minHeight: '100vh'}}>
                     <Sider>
 
                         <LeftNav></LeftNav>

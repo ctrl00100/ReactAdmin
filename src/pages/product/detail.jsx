@@ -27,8 +27,8 @@ class ProductDetail extends Component {
 
         // 得到当前商品的分类ID
         const {pcategoryId, categoryId} = this.props.location.state.product
-           console.log(pcategoryId)
-           console.log(categoryId)
+           // console.log(pcategoryId)
+           // console.log(categoryId)
 
        // if(pcategoryId==='0') { // 一级分类下的商品
         //     const result = await reqCategory(pcategoryId)
@@ -44,7 +44,7 @@ class ProductDetail extends Component {
             const cName2 = result2.data.name*/
 
             const results = await Promise.all([reqPCategory(pcategoryId), reqCategory(categoryId)])
-       console.log(results)
+       // console.log(results)
 
        const cName1 = results[0].data.name
             const cName2 = results[1].data.name
@@ -60,6 +60,9 @@ class ProductDetail extends Component {
 
         // 读取携带过来的state数据
         const {name, ddesc, price, detail, imgs} = this.props.location.state.product
+
+        // console.log(imgs,'imgs,detail')
+
         const {cName1, cName2} = this.state
         const title=(
             <span>
@@ -108,7 +111,7 @@ class ProductDetail extends Component {
                          {/*        />*/}
                          {/*    ))*/}
                          {/*}*/}
-                    <img src="" alt="img"      className={"product-img"}   />
+                    <img src={imgs} alt="img"      className={"product-img"}   />
                  </span>
             </Item>
 

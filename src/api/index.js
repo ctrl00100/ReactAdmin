@@ -53,9 +53,9 @@ searchType: 搜索的类型, productName/productDesc
 export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) => ajax(BASE + '/manage/product/Searchlist', {
   pageNum,
   pageSize,
- [searchType]: searchName,
- //  searchName,
-  // searchType,
+ // [searchType]: searchName,
+  searchName,
+  searchType,
 })
 
 // 搜索商品分页列表 (根据商品描述)
@@ -66,7 +66,8 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
 })*/
 
 // 删除指定名称的图片
-export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST')
+// export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST')
+export const reqDeleteImg = (fileName) => ajax(BASE + '/file/delete', {fileName}, 'POST')
 
 // 添加/修改商品
 export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/' + ( product._id?'update':'add'), product, 'POST')
