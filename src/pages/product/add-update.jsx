@@ -24,7 +24,7 @@ class ProductAddUpdate extends PureComponent {
         options: [],
     }
 
-    constructor (props) {
+    constructor(props) {
         super(props)
 
         // 创建用来保存ref标识的标签对象的容器
@@ -145,18 +145,57 @@ class ProductAddUpdate extends PureComponent {
         // 进行表单验证, 如果通过了, 才发送请求
         this.props.form.validateFields(async (error, values) => {
             if (!error) {
-                console.log('submit', values)
 
-                const imgs=this.pw.current.getImgs()
-                const detail=this.editor.current.getDetail()
+                // 1. 收集数据, 并封装成product对象
+                const {name, desc, price, categoryIds} = values
+                let pcategoryId, categoryId
+                if (categoryIds.length === 1) {
+                    pcategoryId = '0'
+                    categoryId = categoryIds[0]
+                } else {
+                    pcategoryId = categoryIds[0]
+                    categoryId = categoryIds[1]
+                }
 
-                console.log('detail', detail)
+
+                const imgs2 = this.pw.current.getImgs()
+
+
+                // var str = arr.join('-')
+                let imgs = imgs2.join('--')
+
+                const detail = this.editor.current.getDetail()
+
+                const product = {name, desc, price, imgs, detail, pcategoryId, categoryId}
+
+
+                // 如果是更新, 需要添加_id
+                if (this.isUpdate) {
+                    product.id = this.product.id
+                }
+                // 2. 调用接口请求函数去添加/更新
+                const result = await reqAddOrUpdateProduct(product)
+
+                // console.log('result', result)
+                // 3. 根据结果提示
+                if (result.status === 0) {
+                    message.success(`${this.isUpdate ? '更新' : '添加'}商品成功!`)
+                    this.props.history.goBack()
+                } else {
+                    message.error(`${this.isUpdate ? '更新' : '添加'}商品失败!`)
+                }
+                // console.log('submit', values)
+
+                // const imgs=this.pw.current.getImgs()
+                // const detail=this.editor.current.getDetail()
+
+                // console.log('detail', detail)
 
                 // console.log('imgs', imgs)
                 // console.log('this.pw', this.pw)
                 // console.log('this.pw.current', this.pw.current)
 
-                alert("发送ajax")
+                // alert("发送ajax")
             }
 
         })
@@ -252,7 +291,7 @@ class ProductAddUpdate extends PureComponent {
                     </Item>
 
 
-                    <Item label="商品描述">
+                    <Item label="商品描述"  >
                         {
                             getFieldDecorator('ddesc', {
                                 initialValue: product.ddesc,
@@ -299,8 +338,8 @@ class ProductAddUpdate extends PureComponent {
                     <Item label="商品图片">
                         <PicturesWall ref={this.pw} imgs={imgs2}/>
                     </Item>
-                    <Item label="商品详情" labelCol={{span: 2}} wrapperCol={{span: 16}}>
-                      <RichTextEditor   ref={this.editor} detail={detail} />
+                    <Item label="商品详情" labelCol={{span: 2}} wrapperCol={{span: 18}}>
+                        <RichTextEditor ref={this.editor} detail={detail}/>
                     </Item>
 
                     <Item>
