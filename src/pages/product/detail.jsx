@@ -60,7 +60,15 @@ class ProductDetail extends Component {
 
         // 读取携带过来的state数据
         const {name, ddesc, price, detail, imgs} = this.props.location.state.product
+        const imgs2 = []
 
+        if (imgs) {
+            //图片切割
+            imgs.split('--').map(list => (
+
+                imgs2.push(list)));
+
+        }
         // console.log(imgs,'imgs,detail')
 
         const {cName1, cName2} = this.state
@@ -101,17 +109,18 @@ class ProductDetail extends Component {
             <Item>
                 <span className={"left"}>商品图片:</span>
                 <span>
-                         {/*{*/}
-                         {/*    imgs.map(img => (*/}
-                         {/*        <img*/}
-                         {/*            key={img}*/}
-                         {/*            src={BASE_IMG_URL + img}*/}
-                         {/*            className="product-img"*/}
-                         {/*            alt="img"*/}
-                         {/*        />*/}
-                         {/*    ))*/}
-                         {/*}*/}
-                    <img src={imgs} alt="img"      className={"product-img"}   />
+                         {
+                             imgs2.map(img => (
+                                 <img
+                                     key={img}
+                                     // src={BASE_IMG_URL + img}
+                                     src={img}
+                                     className="product-img"
+                                     alt="img"
+                                 />
+                             ))
+                         }
+                    {/*<img src={imgs} alt="img"      className={"product-img"}   />*/}
                  </span>
             </Item>
 
