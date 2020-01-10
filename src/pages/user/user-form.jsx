@@ -47,7 +47,7 @@ class UserForm extends PureComponent {
         </Item>
 
         {
-          user._id ? null : (
+          user.id ? null : (
             <Item label='密码'>
               {
                 getFieldDecorator('password', {
@@ -65,7 +65,7 @@ class UserForm extends PureComponent {
             getFieldDecorator('phone', {
               initialValue: user.phone,
             })(
-              <Input placeholder='请输入手机号'/>
+              <Input  placeholder='请输入手机号'/>
             )
           }
         </Item>
@@ -79,19 +79,22 @@ class UserForm extends PureComponent {
           }
         </Item>
 
-        <Item label='角色'>
-          {
-            getFieldDecorator('role_id', {
-              initialValue: user.role_id,
-            })(
-              <Select>
-                {
-                  roles.map(role => <Option key={role._id} value={role._id}>{role.name}</Option>)
-                }
-              </Select>
-            )
-          }
-        </Item>
+          <Item label='角色'>
+              {
+                  getFieldDecorator('roleId', {
+                      initialValue: user.roleId,
+                  })(
+                      <Select  placeholder="请选择角色">
+                              {
+                                  roles.map(role => <Option key={role.id} value={role.id}>{role.name}</Option>)
+                              }
+
+                          {/*<Option value="2">a</Option>*/}
+                          {/*<Option value="1">b</Option>*/}
+                      </Select>
+                  )
+              }
+          </Item>
       </Form>
     )
   }
