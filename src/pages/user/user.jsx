@@ -217,7 +217,7 @@ class User extends Component {
                     visible={isShowAdd}
                     onOk={this.addOrUpdateUser}
                     onCancel={() => {
-                        // this.form.resetFields()
+                        this.form.resetFields()
                         this.setState({isShowAdd: false})
                     }}
                 >
