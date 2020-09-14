@@ -2,15 +2,15 @@
 
 ## 展示
 
-![展示1](<http://ctrl010.k1772714.club/images/2020/01/17/15792694002908698.jpg>)
+![展示1](https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/暂时1.jpg)
 
 商品一二级目录
 
-![展示2](http://ctrl010.k1772714.club/images/2020/01/17/15792694840421154.jpg)
+![展示2](<https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/展示2.jpg>)
 
 2级目录回显
 
-![展示3](http://ctrl010.k1772714.club/images/2020/01/17/15792694926384723.jpg)
+![展示3](https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/展示3.jpg)
 
 角色权限回显问题  !
 
@@ -25,17 +25,17 @@ git clone https://github.com/ctrl00100/MybatisPlusReactAntd.git
 
 
 
-![后端1](http://ctrl010.k1772714.club/images/2020/01/17/15792695678627686.jpg)
+![后端1](https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/后端1.jpg)
 
 ## 2.前端
 
-![前端1](http://ctrl010.k1772714.club/images/2020/01/17/15792695980632688.jpg)
+![前端1](<https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/前端1.png>)
 
-![前端2](http://ctrl010.k1772714.club/images/2020/01/17/15792696276444928.jpg)
+![前端2](https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/前端2.png)
 
 数组利用--分割和拼接(图片url和权限)
 
-![前端3](http://ctrl010.k1772714.club/images/2020/01/17/1579269640321274.jpg)
+![前端3](https://github.com/ctrl00100/MybatisPlusReactAntd/blob/master/img/前端3.png)
 
 ```shell
 git clone https://github.com/ctrl00100/ReactAdmin.git
