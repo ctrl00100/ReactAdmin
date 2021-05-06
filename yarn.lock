@@ -9925,10 +9925,10 @@ react-dom@^16.12.0:
     prop-types "^15.6.2"
     scheduler "^0.18.0"
 
-react-draft-wysiwyg@^1.14.3:
-  version "1.14.3"
-  resolved "https://registry.npm.taobao.org/react-draft-wysiwyg/download/react-draft-wysiwyg-1.14.3.tgz#55a42bc772f671abcadd0c4d97c922a3560f0e4b"
-  integrity sha1-VaQrx3L2cavK3QxNl8kio1YPDks=
+react-draft-wysiwyg@^1.14.6:
+  version "1.14.6"
+  resolved "https://registry.yarnpkg.com/react-draft-wysiwyg/-/react-draft-wysiwyg-1.14.6.tgz#3ea1f9a0a6c767f2be2901034100b9c5a0e3ea9a"
+  integrity sha512-EMIteBVnlMAP3T97OfjlKchsHZ15mYWQwRw8QIInOtAvlZnnTydRjuHMCN0PuQ2dsXwMkJ7+MWc2aTL5RiXmFg==
   dependencies:
     classnames "^2.2.6"
     draftjs-utils "^0.10.2"
